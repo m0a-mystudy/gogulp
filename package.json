@@ -1,0 +1,36 @@
+{
+  "name": "gogulp",
+  "version": "1.0.0",
+  "description": "gulp sample for golang",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "gulp watch"
+  },
+  "devDependencies": {
+    "babel-core": "^5.8.30",
+    "babel-loader": "^5.3.2",
+    "babel-runtime": "^5.8.29",
+    "css-loader": "^0.21.0",
+    "gulp": "^3.9.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-plumber": "^1.0.1",
+    "gulp-stream": "0.0.2",
+    "gulp-util": "^3.0.7",
+    "gulp-webpack": "^1.5.0",
+    "node-notifier": "^4.3.1",
+    "style-loader": "^0.13.0",
+    "vue-hot-reload-api": "^1.2.1",
+    "vue-html-loader": "^1.0.0",
+    "vue-loader": "^5.0.0",
+    "webpack": "^1.12.2",
+    "webpack-stream": "^2.1.1"
+  },
+  "author": "m0a",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^2.1.4",
+    "vue": "^1.0.1",
+    "vue-router": "^0.7.5"
+  }
+}
