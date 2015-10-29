@@ -193,7 +193,6 @@ gulp.task('assets:build', [
   'assets:javascripts',
   // 'assets:modernizr',
   // 'assets:views'
-  'assets:serverdata'
 ]);
 
 /*
@@ -216,9 +215,9 @@ gulp.task('assets:watch', function() {
   //   'views/**/*.tmpl'
   // ], ['assets:views']);
   /* server assets data */
-  gulp.watch([
-    "server/assets/*.*"
-  ], ['assets:build']);
+  // gulp.watch([
+  //   "server/assets/*.*"
+  // ], ['assets:build']);
 
 });
 
@@ -231,10 +230,9 @@ gulp.task('assets:watch', function() {
  * Build application server.
  */
 
- gulp.task('assets:serverdata',function(){
-   console.log('run assets:serverdata');
+ gulp.task('server:prebuild',function(){
    var build = child.spawnSync('go-bindata-assetfs',
-     ["../assets/"],
+     ["--prefix","../","../assets"],
      {cwd:serverSrcPath}
    );
    if (build.stderr.length) {
@@ -258,7 +256,7 @@ gulp.task('assets:watch', function() {
 
 gulp.task('server:build', function() {
 
-  console.log('run server:build');
+  // console.log('run server:build');
   var build = child.spawnSync('go', ['build','-o',serverBinPath,serverSrcPath]);
   if (build.stderr.length) {
     var lines = build.stderr.toString()
@@ -281,6 +279,8 @@ gulp.task('server:build', function() {
  * Restart application server.
  */
 gulp.task('server:spawn',[],function() {
+  // console.log('server:spawn');
+
   if (server)
     server.kill();
   /* Spawn application server */
@@ -320,6 +320,16 @@ gulp.task('server:watch', function() {
   /* Rebuild and restart application server */
   gulp.watch(
     [
+      serverSrcPath + '../assets/*.*',
+    ],
+    [
+      'server:prebuild',
+    ]);
+
+
+  /* Rebuild and restart application server */
+  gulp.watch(
+    [
       serverSrcPath + '*.go',
     ],
     [
@@ -336,7 +346,7 @@ gulp.task('server:watch', function() {
  * Build assets and application server.
  */
 gulp.task('build', [
-  'assets:build',
+  // 'assets:build',
   'server:build'
 ]);
 
@@ -344,8 +354,9 @@ gulp.task('build', [
  * Start asset and server watchdogs and initialize livereload.
  */
 gulp.task('watch', [
-  'assets:build',
+  'build',
 ], function() {
+  console.log('run watch');
   reload.listen();
   return gulp.start([
     'assets:watch',

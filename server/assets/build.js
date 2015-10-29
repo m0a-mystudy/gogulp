@@ -64,6 +64,7 @@
 	})
 
 	router.start(App, '#app')
+	//hello???
 
 
 /***/ },
